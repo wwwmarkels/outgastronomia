@@ -3,209 +3,533 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Outcast Creative | A Escolha Óbvia</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <title>Outcast Creative | A Escolha Óbvia para Gastronomia no Sul do Brasil</title>
+  <meta name="description" content="Não somos uma agência de posts. Somos operadores. Construímos Marcas-Destino para o setor gastronômico de Curitiba e Florianópolis." />
 
   <style>
+    /* ========================================== */
+    /* DESIGN SYSTEM (Baseado no Manual Outcast)  */
+    /* ========================================== */
     :root {
-      --font: 'Inter', sans-serif;
-      --blue: #2f52ff;
-      --blue-hover: #1a3edb;
-      --ink: #0b0b0c;
-      --muted: #68686a;
-      --bg: #ffffff;
-      --stroke: rgba(11, 11, 12, 0.08);
-      --soft: #f8f9fa;
-      --radius: 32px;
-      --max: 1140px;
+      --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-heading: 'new-spirit', 'Georgia', serif;
+
+      --primary: #004EAD;
+      --primary-hover: #003b85;
+      --ink: #634438;
+      --accent: #FFE075;
+      --bg: #E7E5DB;
+      --soft: #ffffff;
+      --stroke: rgba(99, 68, 56, 0.12);
+
+      --radius: 22px;
+      --radius-lg: 34px;
+      --max: 1180px;
+      --nav-height: 92px;
     }
 
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.4; overflow-x: hidden; }
-    
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; position: relative; }
+    /* ========================================== */
+    /* RESET & TIPOGRAFIA                         */
+    /* ========================================== */
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding-left: 28px; padding-right: 28px; position: relative; }
+    img { max-width: 100%; height: auto; display: block; }
 
-    /* DECORAÇÃO */
-    .flower { position: absolute; pointer-events: none; z-index: 3; }
-    .flower-hero { 
-        top: -50px; 
-        right: -30px; 
-        width: 140px; 
-        transform: rotate(12deg);
-        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
-    }
-    .flower-transition { 
-        bottom: -40px; 
-        left: -80px; 
-        width: 200px; 
-        transform: rotate(-8deg);
-        z-index: 10;
-    }
+    .reveal { opacity: 0; transform: translateY(34px); transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
-    /* Botões */
+    /* ========================================== */
+    /* BOTÕES & TAGS                              */
+    /* ========================================== */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 18px 36px; border-radius: 999px;
-      font-weight: 800; font-size: 15px; text-decoration: none;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
+      padding: 16px 38px; border-radius: 999px;
+      font-weight: 800; font-size: 14px; text-decoration: none; text-transform: uppercase; letter-spacing: 1.4px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; text-align: center;
     }
-    .btn.primary { background: var(--blue); color: #fff; border: none; }
-    .btn.primary:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(47,82,255,0.3); }
-    
-    /* Nav */
-    nav { height: 90px; display: flex; align-items: center; position: sticky; top:0; background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--stroke); }
+    .btn.primary { background: var(--primary); color: #fff; box-shadow: 0 7px 18px rgba(0, 78, 173, 0.18); }
+    .btn.primary:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 14px 26px rgba(0, 78, 173, 0.32); }
+    .btn.outline { border: 2px solid var(--ink); color: var(--ink); background: transparent; }
+    .btn.outline:hover { background: var(--ink); color: var(--bg); transform: translateY(-3px); }
+
+    .tag-pill {
+      color: var(--accent); font-weight: 800; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;
+      display: inline-block; padding: 7px 18px; border: 1px solid rgba(255, 224, 117, 0.4); border-radius: 99px; margin-bottom: 18px;
+    }
+
+    /* ========================================== */
+    /* HEADER / NAV                               */
+    /* ========================================== */
+    nav {
+      height: var(--nav-height); display: flex; align-items: center; position: sticky; top: 0;
+      background: rgba(231, 229, 219, 0.9); backdrop-filter: blur(24px); z-index: 1000;
+      border-bottom: 1px solid var(--stroke); transition: all 0.25s ease;
+    }
+    nav.scrolled { height: 76px; box-shadow: 0 5px 18px rgba(99, 68, 56, 0.08); }
     .nav-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-    .logo-img { height: 36px; width: auto; }
+    
+    /* ↓ Altura da logo aumentada */
+    .logo-img { height: 68px; object-fit: contain; transition: height 0.25s ease; }
+    /* ↓ Altura da logo ao rolar aumentada pro rata */
+    nav.scrolled .logo-img { height: 48px; }
+
+    /* ========================================== */
+    /* ESPAÇAMENTOS GLOBAIS DE SEÇÕES (DESKTOP)   */
+    /* ========================================== */
+    section { padding: 70px 0; }
+    .section-head { margin-bottom: 44px; text-align: center; }
+    .section-head h2 { font-family: var(--font-heading); font-size: clamp(32px, 3.6vw, 52px); font-weight: 900; line-height: 1.1; color: var(--ink); }
+    .section-head p { color: var(--ink); opacity: 0.8; font-size: 18px; max-width: 680px; margin: 16px auto 0; line-height: 1.65; }
 
     /* Hero */
-    .hero { padding: 100px 0; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; }
-    h1 { font-size: clamp(48px, 6vw, 74px); line-height: 0.9; font-weight: 900; letter-spacing: -0.06em; margin: 0 0 28px; }
-    .hero p { font-size: 20px; color: var(--muted); max-width: 520px; margin-bottom: 40px; }
-    .hero-visual { position: relative; }
-    .hero-img { width: 100%; aspect-ratio: 1/1.15; object-fit: cover; border-radius: var(--radius); box-shadow: 0 50px 100px rgba(0,0,0,0.1); position: relative; z-index: 2; }
-    
-    /* Logos Section */
-    .logos-module { margin: 20px 0 80px; padding: 50px; background: var(--soft); border-radius: 40px; border: 1px solid var(--stroke); }
-    .logos-grid { display: flex; flex-wrap: wrap; gap: 60px; align-items: center; justify-content: center; opacity: 0.7; }
-    .logos-grid img { height: 32px; width: auto; object-fit: contain; filter: grayscale(1); transition: 0.3s; }
-    .logos-grid img:hover { filter: grayscale(0); transform: scale(1.05); }
-
-    /* Sections */
-    section { padding: 100px 0; }
-    .section-head h2 { font-size: 54px; font-weight: 900; letter-spacing: -3px; line-height: 1; margin: 0; }
-
-    .skin-block { background: var(--ink); color: #fff; padding: 100px 80px; border-radius: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; }
-    .skin-block h2 { font-size: 58px; font-weight: 900; letter-spacing: -3px; line-height: 0.95; }
-    .skin-tag { color: var(--blue); font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 3px; margin-bottom: 24px; display: block; }
-
-    .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-    .case-card { text-decoration: none; color: inherit; display: block; }
-    .case-media { width: 100%; aspect-ratio: 16/11; border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; border: 1px solid var(--stroke); background: #f0f0f0; }
-    .case-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
-    .case-card:hover img { transform: scale(1.08); }
-    .case-card h3 { font-size: 26px; font-weight: 850; letter-spacing: -1.2px; margin: 0 0 8px; }
-    .case-card span { color: var(--blue); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; }
-
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 80px; }
-    .stat-card { background: var(--soft); padding: 50px; border-radius: var(--radius); border: 1px solid var(--stroke); }
-    .stat-card b { font-size: 64px; font-weight: 900; color: var(--blue); letter-spacing: -4px; display: block; line-height: 0.8; margin-bottom: 12px; }
-
-    /* Agenda Refinada */
-    .agenda-card { background: var(--soft); padding: 100px 40px; border-radius: 60px; text-align: center; }
-    .calendar-container { 
-        background: #fff; 
-        border-radius: 40px; 
-        overflow: hidden; 
-        border: 1px solid var(--stroke); 
-        box-shadow: 0 40px 100px rgba(0,0,0,0.05); 
-        margin-top: 60px; 
-        max-width: 960px; 
-        margin-left: auto; 
-        margin-right: auto; 
+    .hero {
+      padding: 32px 0 72px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 4.6vw, 62px);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin: 0 0 18px;
+      color: var(--ink);
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--ink);
+      opacity: 0.85;
+      max-width: 560px;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: 0 24px 48px rgba(99, 68, 56, 0.14);
     }
 
-    footer { padding: 80px 0; text-align: center; border-top: 1px solid var(--stroke); }
+    /* Marquee */
+    .marquee-wrapper { background: var(--primary); color: #fff; padding: 18px 0; overflow: hidden; display: flex; white-space: nowrap; margin-top: -26px; }
+    .marquee-content { display: inline-block; animation: marquee 30s linear infinite; font-weight: 800; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; }
+    .marquee-content span { margin: 0 34px; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
+    /* Ataque à Concorrência */
+    .vs-block { background: var(--soft); padding: 44px; border-radius: var(--radius-lg); border: 1px solid var(--stroke); display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+    .vs-side { padding: 32px; border-radius: var(--radius); }
+    .vs-side.bad { background: rgba(99, 68, 56, 0.05); border: 1px dashed rgba(99, 68, 56, 0.2); }
+    .vs-side.good { background: var(--ink); color: var(--bg); box-shadow: 0 26px 46px rgba(0,0,0,0.18); }
+    .vs-side h3 { font-family: var(--font-heading); font-size: 28px; margin-bottom: 22px; }
+    .vs-side ul { list-style: none; }
+    .vs-side li { font-size: 16px; margin-bottom: 16px; padding-left: 28px; position: relative; opacity: 0.9; line-height: 1.55; }
+    .vs-side.bad li::before { content: '✕'; color: #d32f2f; position: absolute; left: 0; font-weight: bold; }
+    .vs-side.good li::before { content: '✓'; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+
+    /* Skin in the Game */
+    .skin-block {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 58px;
+      border-radius: var(--radius-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 58px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 26px;
+    }
+    .skin-block::before { content: ''; position: absolute; top: -50%; right: -20%; width: 80%; height: 150%; background: radial-gradient(circle, rgba(0,78,173,0.2) 0%, rgba(99,68,56,0) 70%); pointer-events: none; }
+    .skin-block h2 { font-family: var(--font-heading); font-size: clamp(30px, 3.4vw, 48px); font-weight: 900; line-height: 1.1; margin-bottom: 18px; color: var(--soft); }
+    .skin-block p { font-size: 18px; line-height: 1.7; opacity: 0.9; margin-bottom: 22px; }
+    .skin-img { width: 100%; border-radius: var(--radius); box-shadow: 0 26px 50px rgba(0,0,0,0.35); aspect-ratio: 4/3; object-fit: cover; z-index: 2; position: relative; }
+
+    /* Metodologia */
+    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .method-card { background: var(--soft); padding: 38px 30px; border-radius: var(--radius); border: 1px solid var(--stroke); transition: all 0.28s; }
+    .method-card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(99, 68, 56, 0.08); border-color: var(--primary); }
+    .method-num { font-family: var(--font-heading); font-size: 54px; color: var(--primary); opacity: 0.15; line-height: 0.8; margin-bottom: 18px; font-weight: 900; }
+    .method-card h3 { font-family: var(--font-heading); font-size: 24px; margin-bottom: 12px; color: var(--ink); }
+    .method-card p { opacity: 0.8; line-height: 1.65; font-size: 15px; }
+
+    /* Cases */
+    .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .case-card { background: var(--soft); padding: 32px; border-radius: var(--radius); border: 1px solid var(--stroke); display: flex; flex-direction: column; transition: all 0.28s; }
+    .case-card:hover { transform: translateY(-6px); box-shadow: 0 26px 50px rgba(99, 68, 56, 0.1); }
+    .case-media { width: 100%; aspect-ratio: 16/11; border-radius: 14px; overflow: hidden; margin-bottom: 22px; background: #f0f0f0; border: 1px solid var(--stroke); }
+    .case-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .case-card:hover img { transform: scale(1.04); }
+    .case-tag { color: var(--primary); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; display: block; }
+    .case-card h3 { font-family: var(--font-heading); font-size: 28px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
+    .case-card p { font-size: 16px; opacity: 0.8; margin-bottom: 22px; line-height: 1.65; }
+    .case-metric { background: rgba(0, 78, 173, 0.05); padding: 18px; border-radius: 14px; border-left: 5px solid var(--primary); font-weight: 800; font-size: 18px; color: var(--primary); margin-top: auto; line-height: 1.4; }
+
+    /* FAQ */
+    .faq-container { max-width: 860px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--stroke); padding: 28px 0; cursor: pointer; }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-heading); font-size: 24px; font-weight: 900; color: var(--ink); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; opacity: 0.8; font-size: 16px; margin-top: 0; line-height: 1.7; }
+    .faq-item.active .faq-answer { max-height: 380px; margin-top: 18px; }
+    .faq-icon { font-size: 30px; transition: transform 0.3s; color: var(--primary); font-weight: 300; }
+    .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+    /* Agenda */
+    .agenda-card { background: var(--soft); padding: 44px 86px; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--stroke); box-shadow: 0 34px 70px rgba(99, 68, 56, 0.05); }
+    .agenda-card h2 { font-family: var(--font-heading); font-size: clamp(32px, 4vw, 52px); font-weight: 900; line-height: 1.1; color: var(--ink); }
+    .calendar-container { background: #fff; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--stroke); margin-top: 46px; max-width: 900px; margin-left: auto; margin-right: auto; position: relative; padding-bottom: 640px; height: 0; }
+    .calendar-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+    /* Footer */
+    footer { padding: 82px 0 52px; border-top: 1px solid var(--stroke); background: var(--soft); }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 34px; margin-bottom: 62px; }
+    /* ↓ Altura da logo do footer aumentada */
+    .footer-logo { height: 68px; margin-bottom: 18px; }
+    .footer-info p { color: var(--ink); opacity: 0.7; font-size: 16px; max-width: 380px; line-height: 1.65; }
+    .footer-links { display: flex; gap: 34px; align-items: center; }
+    .footer-links a { color: var(--ink); text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 1.4px; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--stroke); font-size: 13px; color: var(--ink); opacity: 0.55; font-weight: 600; }
+
+    /* ========================================== */
+    /* RESPONSIVIDADE                             */
+    /* ========================================== */
     @media (max-width: 1024px) {
-      .hero, .skin-block, .cases-grid, .stats { grid-template-columns: 1fr; }
-      .skin-block { padding: 60px 30px; text-align: center; }
-      .hero { text-align: center; padding: 40px 0; }
-      .hero p { margin: 0 auto 32px; }
-      .flower { display: none; }
+      section { padding: 90px 0; }
+      .hero { gap: 44px; padding: 54px 0 86px; grid-template-columns: 1fr; }
+      .vs-block, .skin-block { grid-template-columns: 1fr; padding: 52px 36px; gap: 44px; }
+      .method-grid { grid-template-columns: 1fr; gap: 28px; }
+      .cases-grid { gap: 28px; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-logo { margin-left: auto; margin-right: auto; }
+      .footer-info p { margin: 0 auto; }
+      .footer-links { justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 78px 0; }
+      .section-head { margin-bottom: 42px; }
+
+      .nav-inner { justify-content: center; }
+      /* ↓ Altura da logo aumentada no mobile */
+      .logo-img { height: 56px; }
+
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 38px 0 74px; gap: 34px; }
+      .hero p { margin: 0 auto 26px; }
+      .hero-actions { justify-content: center; gap: 14px; }
+
+      .marquee-wrapper { margin-top: 0; margin-bottom: 44px; padding: 16px 0; }
+
+      .vs-block { gap: 30px; padding: 34px 26px; }
+      .vs-side { padding: 26px 20px; }
+
+      .skin-block { gap: 34px; padding: 48px 26px; text-align: center; }
+
+      .cases-grid { grid-template-columns: 1fr; gap: 28px; }
+      .method-grid { gap: 22px; }
+
+      .faq-item { padding: 26px 0; }
+      .faq-question { font-size: 21px; line-height: 1.3; }
+
+      .agenda-card { padding: 64px 26px; }
+      .calendar-container { padding-bottom: 800px; margin-top: 36px; }
+
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .wrap { padding-left: 18px; padding-right: 18px; }
+      nav { height: 78px; }
+      nav .btn { display: none; }
+      /* ↓ Altura da logo aumentada no mobile pequeno */
+      .logo-img { height: 48px; }
+
+      section { padding: 58px 0; }
+      .section-head { margin-bottom: 36px; }
+      .section-head h2 { font-size: 30px; }
+
+      .btn { padding: 15px 22px; font-size: 13px; width: 100%; }
+      .hero-actions { flex-direction: column; width: 100%; gap: 14px; }
+
+      .vs-block { padding: 32px 18px; gap: 26px; border-radius: 22px; }
+      .vs-side { padding: 22px 18px; }
+      .vs-side h3 { font-size: 22px; }
+      .vs-side li { font-size: 15px; }
+
+      .skin-block { padding: 44px 18px; border-radius: 22px; gap: 32px; }
+      .skin-block h2 { font-size: 30px; }
+
+      .method-card { padding: 32px 20px; }
+      .case-card { padding: 28px 18px; border-radius: 18px; }
+      .case-card h3 { font-size: 24px; }
+
+      .faq-question { font-size: 19px; }
+
+      .agenda-card { border-radius: 22px; padding: 56px 18px; }
+      .agenda-card h2 { font-size: 26px; }
+
+      .footer-links { flex-direction: column; gap: 16px; }
     }
   </style>
 </head>
+
 <body>
 
-  <nav>
+  <nav id="navbar">
     <div class="wrap nav-inner">
-      <img src="https://static.wixstatic.com/media/675661_d2f91d8197ff4211ad50f5d3fd750926~mv2.png" alt="Outcast Logo" class="logo-img">
-      <a href="#agendar" class="btn primary" style="padding: 14px 28px; font-size: 13px;">Agendar Consultoria</a>
+      <img src="https://i.ibb.co/gbsb30M0/image-removebg-preview.png" alt="Outcast Creative Logo" class="logo-img">
+      <a href="#agendar" class="btn primary">Agendar Diagnóstico</a>
     </div>
   </nav>
 
-  <header class="wrap hero">
+  <header class="wrap hero reveal">
     <div class="hero-content">
-      <div style="font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 3px; color: var(--blue); margin-bottom: 24px;">Boutique de Branding e Estratégia</div>
-      <h1>Sua marca é a <span style="color: var(--blue);">escolha óbvia</span> ou apenas mais uma?</h1>
-      <p>Construímos marcas-destino para o setor gastronômico através de estética de alto nível e estratégia de performance.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="#agendar" class="btn primary">Quero ser a escolha óbvia</a>
-        <a href="#portfolio" class="btn" style="border: 2px solid var(--ink); color: var(--ink); font-weight: 900;">Ver portfólio</a>
+      <div style="font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); margin-bottom: 18px;">
+        Curitiba & Florianópolis
+      </div>
+      <h1>A sua marca é a <span style="color: var(--primary);">escolha óbvia</span> ou apenas mais uma?</h1>
+      <p>Construímos marcas-destino para o setor gastronômico. Não somos uma agência de posts; aliamos estética de alto nível a uma estratégia de performance 100% focada no seu DRE.</p>
+      <div class="hero-actions">
+        <a href="#agendar" class="btn primary">Agendar Diagnóstico de 15min</a>
+        <a href="#portfolio" class="btn outline">Ver Resultados</a>
       </div>
     </div>
     <div class="hero-visual">
-      <img src="https://static.wixstatic.com/media/675661_55ae437543f94563acd6c980120d70b2~mv2.png" class="flower flower-hero" alt="decor">
-      <img src="https://static.wixstatic.com/media/675661_a63273ba5a234d9da8ccca11b39ecd24~mv2.jpg" alt="Outcast Team" class="hero-img">
+      <img src="https://static.wixstatic.com/media/675661_a63273ba5a234d9da8ccca11b39ecd24~mv2.jpg" alt="Equipe Outcast" class="hero-img">
     </div>
   </header>
 
-  <div class="wrap">
-    <div class="logos-module">
-      <div class="logos-grid">
-        <img src="https://static.wixstatic.com/media/675661_abd7096b0a3449aba905ff9971e96e54~mv2.png" alt="Baggio">
-        <img src="https://static.wixstatic.com/media/675661_b1f104bd26b344d28b950e02dfc287f3~mv2.png" alt="Penelope">
-        <img src="https://static.wixstatic.com/media/675661_87c3a167ca8d4b989cfa73fb2574363b~mv2.png" alt="Carlo">
-        <img src="https://static.wixstatic.com/media/675661_51cf68cdf0814635ae7e4bc17ad0b886~mv2.png" alt="Comodoro">
-        <img src="https://static.wixstatic.com/media/675661_74388a2418744a0bb98db35a6d942540~mv2.png" alt="Straccia">
-      </div>
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+      <span>SKIN IN THE GAME</span> <span>•</span>
+      <span>DE OPERADOR PARA OPERADOR</span> <span>•</span>
+      <span>MARCA-DESTINO</span> <span>•</span>
+      <span>FIM DA PANFLETAGEM DIGITAL</span> <span>•</span>
+      <span>PERFORMANCE E DRE</span> <span>•</span>
+      <span>SKIN IN THE GAME</span> <span>•</span>
+      <span>DE OPERADOR PARA OPERADOR</span> <span>•</span>
+      <span>MARCA-DESTINO</span> <span>•</span>
+      <span>FIM DA PANFLETAGEM DIGITAL</span> <span>•</span>
+      <span>PERFORMANCE E DRE</span>
     </div>
   </div>
 
-  <section class="wrap">
+  <section class="wrap reveal">
+    <div class="section-head">
+      <h2>O mercado amadureceu. A sua agência não.</h2>
+      <p>A maioria das agências de Curitiba e Floripa faz posts bonitos e manda planilhas, mas nunca operou um restaurante. Ferramenta de WhatsApp e panfletagem digital não criam filas na porta.</p>
+    </div>
+    <div class="vs-block">
+      <div class="vs-side bad">
+        <h3>A Agência Comum</h3>
+        <ul>
+          <li>Foca em "likes" e cronogramas engessados.</li>
+          <li>Torna você refém dos algoritmos do iFood.</li>
+          <li>Vende planilhas teóricas e jargões corporativos.</li>
+          <li>Nunca fechou um caixa numa sexta-feira à noite.</li>
+        </ul>
+      </div>
+      <div class="vs-side good">
+        <h3 style="color: var(--accent);">A Outcast Creative</h3>
+        <ul>
+          <li>Foca em DRE, CMV e margem de lucro.</li>
+          <li>Constrói desejo real, fazendo clientes saírem de casa.</li>
+          <li>Une Boutique de Branding com tráfego agressivo.</li>
+          <li><strong>Skin in the Game:</strong> Testamos estratégias nos nossos próprios bares.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap reveal" id="sobre">
     <div class="skin-block">
       <div class="skin-info">
-        <span class="skin-tag">Skin in the Game</span>
-        <h2>Falamos a língua do seu <span style="color: var(--blue);">DRE</span>.</h2>
-        <p>A Outcast não é uma agência de posts. Somos operadores. Fundamos e gerimos marcas como <b>Penélope Bar</b> e <b>Straccia</b>.</p>
-        <p>Nossa estratégia nasce da prática. Entendemos o seu salão e o seu custo.</p>
+        <span class="tag-pill">A Nossa Grande Vantagem Desleal</span>
+        <h2>A sua agência sabe o que é fechar o <span style="color: var(--accent);">DRE</span> no azul depois de uma sexta caótica?</h2>
+        <p>Provavelmente não. A Outcast nasceu da frustração com agências teóricas. O nosso maior diferencial é a <strong>Empatia Operacional</strong>.</p>
+        <p>Nós não vendemos apenas consultoria. Nós fundamos e operamos o <b>Penélope Bar</b> e o <b>Straccia</b>. Ao nos escolher, você não contrata estagiários para fazer posts; você traz sócios estratégicos de operador para operador.</p>
+        <a href="#agendar" class="btn primary" style="margin-top: 18px;">Falar com quem entende a operação</a>
       </div>
-      <div style="position: relative;">
-        <img src="https://static.wixstatic.com/media/675661_12f883b76f404b7ba93c2c31e605e9c6~mv2.jpg" style="width: 100%; border-radius: 24px; box-shadow: 0 40px 80px rgba(0,0,0,0.3);" alt="Penelope Bar">
-        <img src="https://static.wixstatic.com/media/675661_6759176fc34045f884e82eae29cfc403~mv2.png" class="flower flower-transition" alt="decor">
+      <div class="skin-visual">
+        <img src="https://static.wixstatic.com/media/675661_12f883b76f404b7ba93c2c31e605e9c6~mv2.jpg" alt="Interior do Penelope Bar" class="skin-img">
       </div>
     </div>
   </section>
 
-  <section class="wrap" id="portfolio">
-    <div class="section-head" style="margin-bottom: 60px;">
-      <h2>Cases selecionados.</h2>
+  <section class="wrap reveal">
+    <div class="section-head">
+      <h2>A Trindade Outcast.</h2>
+      <p>O fim da panfletagem digital. É assim que construímos Marcas-Destino.</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-num">01</div>
+        <h3>OUTfoundation</h3>
+        <p>O alicerce. Redefinimos a sua identidade, narrativa e posicionamento. Fazemos a sua marca deixar de competir por preço e cupons para se tornar um destino desejado na cidade.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-num">02</div>
+        <h3>Estratégia & Criação</h3>
+        <p>Estética de Boutique. Criamos campanhas e audiovisuais que retêm a atenção no meio do ruído do Instagram e geram desejo visceral no seu cliente ideal.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-num">03</div>
+        <h3>Aquisição Fundo de Funil</h3>
+        <p>Não dependemos do orgânico. Escalamos a sua operação com tráfego pago agressivo, mirando em palavras-chave de alta conversão para lotar o seu salão ou bombar o seu delivery.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap reveal" id="portfolio">
+    <div class="section-head">
+      <h2>Números que falam por si.</h2>
+      <p>Nós não vendemos estética vazia. Nós vendemos crescimento escalável para a sua operação.</p>
     </div>
     <div class="cases-grid">
+
       <div class="case-card">
-        <div class="case-media"><img src="https://static.wixstatic.com/media/675661_48c59bd99fcd484d9db0330cd433a94b~mv2.png" alt="Straccia"></div>
-        <span>Lançamento</span>
-        <h3>Straccia: Marca destino em Curitiba.</h3>
+        <div class="case-media">
+          <img src="https://i.ibb.co/yFwtN8N3/pexels-rehanverma-3053082.jpg" alt="Pizzaiolo preparando massa">
+        </div>
+        <span class="case-tag">Performance & Delivery</span>
+        <h3>Franquia de Pizzarias do Sul do Brasil</h3>
+        <p>Através de reestruturação de marca e inteligência de tráfego, escalamos a operação da rede para patamares históricos.</p>
+        <div class="case-metric">+ R$ 1 Milhão de faturamento mensal na comparação YoY.</div>
       </div>
+
       <div class="case-card">
-        <div class="case-media"><img src="https://static.wixstatic.com/media/675661_17d693cf48164893827b0e492c6ac968~mv2.jpeg" alt="Baggio"></div>
-        <span>Performance</span>
-        <h3>Pizzarias Baggio: +R$ 1Mi em Delivery.</h3>
+        <div class="case-media">
+          <img src="https://i.ibb.co/8L0mCV3Z/image.png" alt="Feed Estético Penélope Bar">
+        </div>
+        <span class="case-tag">Skin in the Game (Operação Própria)</span>
+        <h3>Penélope Bar</h3>
+        <p>A prova viva do nosso método. Construímos uma marca do absoluto zero, focando 100% em comunidade, branding e estética.</p>
+        <div class="case-metric">
+          R$ 1 Milhão faturado em 12 meses, com R$ 0 de investimento em anúncios.
+          <a href="https://www.instagram.com/penelope.drinks/" target="_blank" rel="noopener noreferrer"
+             style="color: var(--ink); font-size: 13px; text-decoration: underline; margin-top: 8px; display: block;">
+            Ver no Instagram
+          </a>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-media">
+          <img src="https://i.ibb.co/LzsgFX1z/pexels-shouravsheikh-5695594.jpg" alt="Interior moderno de restaurante">
+        </div>
+        <span class="case-tag">Campanha de Alto Impacto</span>
+        <h3>Grande Rede de Franquias</h3>
+        <p>Desenvolvemos uma estratégia de marketing de guerrilha focada em datas sazonais críticas para o setor.</p>
+        <div class="case-metric">Campeã absoluta de vendas entre todos os restaurantes do Brasil no Dia do Consumidor 2024.</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-media">
+          <img src="https://i.ibb.co/zT9SwNG8/image.png" alt="Feed Estético Straccia">
+        </div>
+        <span class="case-tag">Fundação de Marca & Lançamento</span>
+        <h3>Straccia (Operação Própria)</h3>
+        <p>Mais um negócio fundado e operado pela Outcast. De conceito bruto a uma verdadeira marca-destino cobiçada em Curitiba.</p>
+        <div class="case-metric">Case de consolidação de marca e validação da metodologia OUTfoundation.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="wrap reveal">
+    <div class="section-head">
+      <h2>Perguntas Frequentes.</h2>
+      <p>Sem respostas prontas, apenas a verdade nua e crua.</p>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item" onclick="this.classList.toggle('active')">
+        <div class="faq-question">Vocês fazem gestão de redes sociais? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">Não. Acreditamos que a "panfletagem digital" sem estratégia é um desperdício de dinheiro. Nós desenhamos fundações de marca, criamos campanhas de alto impacto visual e gerimos o tráfego pago focado no DRE.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('active')">
+        <div class="faq-question">Para que tipo de negócio é a Outcast? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">Trabalhamos com o setor gastronômico de Curitiba e Santa Catarina. Se o seu negócio tem um produto de qualidade e quer deixar de ser refém do iFood para se tornar uma marca-destino, somos o parceiro ideal.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('active')">
+        <div class="faq-question">O que acontece no Diagnóstico de 15min? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">É um papo rápido e direto. Vamos analisar o seu momento atual e dizer de forma transparente se a nossa metodologia consegue colocar dinheiro no seu bolso. Sem enrolação.</div>
       </div>
     </div>
   </section>
 
-  <section class="wrap" id="agendar">
+  <section class="wrap reveal" id="agendar">
     <div class="agenda-card">
-      <h2 style="font-size: 60px; font-weight: 900; letter-spacing: -3px; line-height: 0.9;">Agendar conversa: <span style="color: var(--blue);">15min</span></h2>
-      <p style="color: var(--muted); max-width: 600px; margin: 30px auto 40px; font-size: 19px;">Um diagnóstico rápido para entender como transformar seu negócio na escolha óbvia.</p>
-      
+      <h2>Agende um Diagnóstico de <span style="color: var(--primary);">15 minutos</span></h2>
+      <p style="color: var(--ink); opacity: 0.8; max-width: 650px; margin: 18px auto 0; font-size: 18px;">
+        Uma conversa rápida, de operador para operador, para entender como blindar a sua operação.
+      </p>
+
       <div class="calendar-container">
-        <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0_uFbW8B-FhnPeGxW30rtR5LPm8l3KRCazSkwLEvwasZHv1-40kA_y5iS-uzkRjNioGIFv9owe?gv=true" style="border: 0" width="100%" height="700" frameborder="0"></iframe>
-        </div>
+        <iframe
+          title="Agendamentos Outcast"
+          src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0_uFbW8B-FhnPeGxW30rtR5LPm8l3KRCazSkwLEvwasZHv1-40kA_y5iS-uzkRjNioGIFv9owe?gv=true"
+          frameborder="0"
+          loading="lazy"
+          style="border:0"
+        ></iframe>
+      </div>
     </div>
   </section>
 
   <footer>
-    <div class="wrap">
-      <img src="https://static.wixstatic.com/media/675661_d2f91d8197ff4211ad50f5d3fd750926~mv2.png" alt="Outcast Logo" style="height: 30px; margin-bottom: 20px;">
-      <p style="font-size: 13px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Real Results • Curitiba, PR.</p>
+    <div class="wrap reveal">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <img src="https://i.ibb.co/gbsb30M0/image-removebg-preview.png" alt="Outcast Creative Logo" class="footer-logo">
+          <p>Construímos as marcas que se tornam a escolha óbvia através de estética premium e performance focada no DRE.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#sobre">A Trincheira</a>
+          <a href="#portfolio">Cases e Números</a>
+          <a href="#agendar">Agendar Diagnóstico</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>©️ 2026 Outcast Creative. Todos os direitos reservados.</span>
+        <span>Curitiba, PR • No BS. Just Results.</span>
+      </div>
     </div>
   </footer>
 
+  <script>
+    // Efeito Glass da Navbar
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // Animações Reveal de Scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+
+    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      });
+    }, revealOptions);
+
+    revealElements.forEach(el => {
+      revealOnScroll.observe(el);
+      if (el.classList.contains('hero')) setTimeout(() => el.classList.add('active'), 100);
+    });
+  </script>
+
 </body>
 </html>
+
 
